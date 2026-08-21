@@ -1,0 +1,67 @@
+<div class="container page">
+  <div *ngIf="paidMessage" class="banner success">{{ paidMessage }}</div>
+  <div *ngIf="errorMessage" class="banner error">{{ errorMessage }}</div>
+
+  <div class="empty" *ngIf="items.length === 0 && !paidMessage">
+    Your cart is empty. Head over to <a routerLink="/order-pizza">Order Pizza</a> to get started!
+  </div>
+
+  <div class="cart-layout" *ngIf="items.length > 0">
+    <div class="cart-list">
+      <h2>My Cart</h2>
+
+      <div class="cart-row" *ngFor="let item of items">
+        <img [src]="item.image" [alt]="item.name" />
+
+        <div class="cart-row-info">
+          <span class="dot" [class.custom]="item.type === 'custom'"></span>
+          <div>
+            <p class="name">{{ item.name }}</p>
+            <p class="unit-price" *ngIf="item.type === 'pizza'">₹{{ item.unitPrice }}</p>
+            <p class="unit-price" *ngIf="item.type === 'custom'">
+              {{ item.ingredients?.length }} ingredients &middot; ₹{{ item.ingredientsCost }}
+            </p>
+          </div>
+        </div>
+
+        <div class="qty-control">
+          <button (click)="decrement(item.id)">-</button>
+          <span>{{ item.quantity }}</span>
+          <button (click)="increment(item.id)">+</button>
+        </div>
+
+        <div class="line-total">
+          ₹{{ ((item.unitPrice + (item.ingredientsCost || 0)) * item.quantity).toFixed(2) }}
+        </div>
+
+        <button class="remove-btn" (click)="remove(item.id)" aria-label="Remove item">🗑</button>
+      </div>
+
+      <div class="subtotal-row">
+        <span>Sub Total :</span>
+        <strong>₹{{ totals.pizzaSubtotal + totals.ingredientsTotal }}.00</strong>
+      </div>
+    </div>
+
+    <aside class="cart-summary">
+      <h3>The total amount of</h3>
+      <div class="summary-row">
+        <span>Pizza</span>
+        <span>₹{{ totals.pizzaSubtotal }}</span>
+      </div>
+      <div class="summary-row">
+        <span>Ingredients</span>
+        <span>₹{{ totals.ingredientsTotal }}</span>
+      </div>
+      <div class="summary-row total">
+        <span>Total :</span>
+        <strong>₹{{ totals.total }}.00</strong>
+      </div>
+
+      <button class="btn btn-orange pay-btn" (click)="pay()" [disabled]="paying">
+        {{ paying ? 'Processing…' : 'Pay' }}
+      </button>
+      <button class="btn btn-dark clear-btn" (click)="clear()">Clear</button>
+    </aside>
+  </div>
+</div>

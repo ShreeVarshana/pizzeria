@@ -1,0 +1,34 @@
+<div class="container page">
+  <header class="page-heading">
+    <div><p class="eyebrow">Straight from the oven</p><h1>Choose your favourite.</h1></div>
+    <p>Every pizza starts with our 48-hour dough<br />and ends with a little bit of joy.</p>
+  </header>
+  <nav class="menu-filters" aria-label="Filter menu">
+    <button [class.active]="activeFilter === 'all'" (click)="setFilter('all')">All pizzas</button>
+    <button [class.active]="activeFilter === 'veg'" (click)="setFilter('veg')">Vegetarian</button>
+    <button [class.active]="activeFilter === 'nonveg'" (click)="setFilter('nonveg')">Non-Vegetarian</button>
+  </nav>
+  <div *ngIf="loading" class="status">Loading menu…</div>
+  <div *ngIf="error" class="status error">{{ error }}</div>
+
+  <div class="pizza-grid" *ngIf="!loading && !error">
+    <article class="pizza-card" *ngFor="let pizza of visiblePizzas">
+      <div class="pizza-image"><img [src]="pizza.image" [alt]="pizza.name" /><span class="category" [class.veg]="pizza.category === 'veg'">{{ pizza.category === 'veg' ? 'VEG' : 'NON-VEG' }}</span></div>
+      <div class="pizza-card-header">
+        <div>
+          <h3>{{ pizza.name }}</h3>
+          <span class="dot" [class.veg]="pizza.category === 'veg'" [class.nonveg]="pizza.category === 'nonveg'"></span>
+        </div>
+      </div>
+
+      <p class="desc">{{ pizza.description }}</p>
+      <p class="price">₹{{ pizza.price }} <span>per pizza</span></p>
+      <p class="detail"><strong>Ingredients:</strong> {{ pizza.ingredients }}</p>
+      <p class="detail"><strong>Toppings:</strong> {{ pizza.toppings }}</p>
+
+      <button class="btn btn-orange add-btn" [class.added]="pizza._id && addedIds.has(pizza._id)" (click)="addToCart(pizza)">
+        {{ pizza._id && addedIds.has(pizza._id) ? 'Added ✓' : 'Add to Cart' }}
+      </button>
+    </article>
+  </div>
+</div>

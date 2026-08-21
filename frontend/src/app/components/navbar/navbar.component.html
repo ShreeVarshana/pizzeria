@@ -1,0 +1,19 @@
+<nav class="navbar">
+  <div class="container navbar-inner">
+    <a routerLink="/" class="brand" aria-label="Pizzeria home">
+      <span class="brand-mark">P</span>
+      <span class="brand-copy"><strong>Pizzeria</strong><small>hand-stretched daily</small></span>
+    </a>
+
+    <ul class="nav-links" aria-label="Main navigation">
+      <li><a routerLink="/order-pizza" routerLinkActive="active">The menu</a></li>
+      <li><a routerLink="/build-pizza" routerLinkActive="active">Build your own</a></li>
+    </ul>
+
+    <a routerLink="/cart" class="cart-btn btn btn-orange" aria-label="Open shopping cart">
+      <span class="cart-icon" aria-hidden="true">🛒</span>
+      <span class="cart-label">Cart</span>
+      <span class="cart-badge" *ngIf="itemCount > 0">{{ itemCount }}</span>
+    </a>
+  </div>
+</nav>

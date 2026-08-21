@@ -1,0 +1,131 @@
+.navbar {
+  background: var(--brand-black);
+  color: #fff;
+  border-bottom: 3px solid var(--brand-orange);
+  box-shadow: 0 8px 24px rgba(31, 36, 33, 0.12);
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  min-height: 78px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+}
+
+.brand-mark {
+  background: var(--brand-orange);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50% 50% 50% 8px;
+  font: 800 1.45rem 'Playfair Display', serif;
+  transform: rotate(-8deg);
+}
+
+.brand-copy {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.brand-copy strong {
+  font: 700 1.35rem 'Playfair Display', serif;
+}
+
+.brand-copy small {
+  color: #c0c8c1;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  margin-top: 5px;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: #bfc7c0;
+  font-weight: 600;
+  padding: 9px 2px;
+  border-bottom: 2px solid transparent;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #fff;
+  border-bottom-color: var(--brand-orange);
+}
+
+.cart-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 94px;
+  min-height: 42px;
+  padding: 9px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.9rem;
+}
+
+.cart-icon {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.cart-label {
+  font-weight: 700;
+}
+
+.cart-badge {
+  background: var(--brand-black);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  min-width: 19px;
+  height: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  animation: cart-pop 240ms ease;
+}
+
+@keyframes cart-pop {
+  from { transform: scale(0.7); }
+  to { transform: scale(1); }
+}
+
+@media (max-width: 600px) {
+  .navbar-inner {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 12px 18px;
+  }
+  .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    padding: 12px 0 2px;
+    gap: 22px;
+  }
+  .cart-btn { min-width: 84px; }
+}

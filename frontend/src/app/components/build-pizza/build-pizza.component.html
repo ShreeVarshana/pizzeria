@@ -1,0 +1,50 @@
+<div class="container page">
+  <header class="page-heading"><p class="eyebrow">Your kitchen, our dough</p><h1>Make it yours.</h1></header>
+  <p class="hint" *ngIf="!loading && !error">
+    Start with a blank canvas. Pick your toppings and we’ll fire it up exactly how you like it.
+  </p>
+
+  <div *ngIf="loading" class="status">Loading ingredients…</div>
+  <div *ngIf="error" class="status error">{{ error }}</div>
+
+  <div class="builder-layout" *ngIf="!loading && !error">
+    <div class="builder">
+      <div class="builder-label"><span>01</span><strong>Pick your toppings</strong><span class="builder-count">{{ selectedCount }} selected</span></div>
+      <table class="ingredient-table">
+      <tbody>
+        <tr *ngFor="let ing of ingredients" [class.selected]="ing.selected">
+          <td class="img-cell"><img [src]="ing.image" [alt]="ing.name" /></td>
+          <td class="name-cell">{{ ing.name }} <span class="price">₹{{ ing.price }}.00</span></td>
+          <td class="add-cell">
+            <label class="add-toggle">
+              <input type="checkbox" [(ngModel)]="ing.selected" />
+              <span>{{ ing.selected ? 'Added' : 'Add' }}</span>
+            </label>
+          </td>
+        </tr>
+      </tbody>
+      </table>
+
+    <div class="build-footer">
+      <p class="total-cost"><span>{{ selectedCount }} toppings</span><strong>₹{{ totalCost }}.00</strong></p>
+      <button
+        class="btn btn-dark build-btn"
+        [disabled]="selectedCount === 0"
+        (click)="buildPizza()"
+      >
+        {{ built ? 'Added to cart ✓' : 'Build my pizza' }}
+      </button>
+      </div>
+    </div>
+    <aside class="pizza-preview" [class.has-toppings]="selectedCount > 0">
+      <div class="preview-orbit"><span>✦</span></div>
+      <p class="eyebrow">Your creation</p>
+      <div class="preview-pie">🍕</div>
+      <h2>{{ selectedCount ? 'A pizza with personality.' : 'Start with a blank canvas.' }}</h2>
+      <p>{{ selectedCount ? 'A little extra goodness never hurt.' : 'Choose an ingredient and watch your order come together.' }}</p>
+      <div class="ingredient-chips" *ngIf="selectedCount > 0">
+        <span *ngFor="let ing of selectedIngredients">{{ ing.name }}</span>
+      </div>
+    </aside>
+  </div>
+</div>

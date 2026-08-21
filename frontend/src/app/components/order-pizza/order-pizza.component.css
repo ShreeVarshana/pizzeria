@@ -1,0 +1,108 @@
+.page {
+  padding: 54px 28px 72px;
+}
+
+.page-heading { display: flex; align-items: end; justify-content: space-between; margin-bottom: 34px; }
+.page-heading h1 { font-size: 3.4rem; line-height: 1; margin: 0; }
+.page-heading > p { color: var(--text-muted); line-height: 1.6; text-align: right; margin: 0 0 4px; }
+
+.menu-filters { display: flex; gap: 8px; margin-bottom: 26px; border-bottom: 1px solid var(--border-light); }
+.menu-filters button { border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--text-muted); padding: 10px 12px; font-weight: 600; transition: color 160ms ease, border-color 160ms ease; }
+.menu-filters button:hover, .menu-filters button.active { color: var(--brand-orange); border-bottom-color: var(--brand-orange); }
+
+.status {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+.status.error {
+  color: var(--red);
+}
+
+.pizza-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px;
+}
+
+.pizza-card {
+  border: 1px solid var(--border-light);
+  border-radius: 2px;
+  padding: 0 20px 22px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.pizza-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-soft); }
+
+.pizza-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  padding-top: 18px;
+}
+
+.pizza-image { position: relative; margin: 0 -20px; }
+.pizza-image img { width: 100%; height: 220px; display: block; object-fit: cover; }
+.category { position: absolute; left: 14px; bottom: 14px; background: var(--brand-black); color: #fff; padding: 6px 9px; font-size: 0.62rem; letter-spacing: 0.12em; font-weight: 700; }
+.category.veg { background: var(--green); }
+
+.pizza-card-header h3 {
+  margin: 0 0 6px;
+  font-size: 1.6rem;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.dot.veg {
+  background: var(--green);
+}
+
+.dot.nonveg {
+  background: var(--red);
+}
+
+.desc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 8px 0;
+}
+
+.price {
+  font-weight: 700;
+  color: var(--brand-orange);
+  font-size: 1.2rem;
+  margin: 12px 0;
+}
+.price span { color: var(--text-muted); font-size: 0.72rem; font-weight: 400; }
+
+.detail {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 2px 0;
+}
+
+.add-btn {
+  align-self: stretch;
+  margin-top: 18px;
+}
+.add-btn.added { background: var(--green); box-shadow: 0 8px 18px rgba(40, 122, 82, 0.2); }
+
+@media (max-width: 700px) {
+  .page-heading { display: block; }
+  .page-heading h1 { font-size: 2.8rem; }
+  .page-heading > p { text-align: left; margin-top: 14px; }
+  .menu-filters { overflow-x: auto; }
+  .menu-filters button { white-space: nowrap; }
+  .pizza-grid {
+    grid-template-columns: 1fr;
+  }
+}
