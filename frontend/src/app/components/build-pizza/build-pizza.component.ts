@@ -52,6 +52,19 @@ export class BuildPizzaComponent implements OnInit {
     return this.ingredients.filter((ingredient) => ingredient.selected);
   }
 
+  get flavorLabel(): string {
+    if (this.selectedCount === 0) return 'Your topping budget';
+    if (this.selectedCount < 3) return 'A light touch';
+    if (this.selectedCount < 5) return 'Nicely loaded';
+    return 'Maximum flavour';
+  }
+
+  get flavorDescription(): string {
+    if (this.selectedCount < 3) return 'A clean, considered combination with room for every flavour to shine.';
+    if (this.selectedCount < 5) return 'A generous balance of texture, colour and the good stuff.';
+    return 'You came hungry. This one is stacked with personality.';
+  }
+
   buildPizza(): void {
     const selected = this.ingredients.filter((i) => i.selected);
     if (selected.length === 0) return;

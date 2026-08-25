@@ -1,5 +1,11 @@
 <div class="container page">
-  <header class="page-heading"><p class="eyebrow">Your kitchen, our dough</p><h1>Make it yours.</h1></header>
+  <header class="page-heading">
+    <div>
+      <p class="eyebrow">Your kitchen, our dough</p>
+      <h1>Make it yours.</h1>
+    </div>
+    <div class="custom-counter"><strong>{{ selectedCount | number:'2.0-0' }}</strong><span>of {{ ingredients.length | number:'2.0-0' }} toppings chosen</span></div>
+  </header>
   <p class="hint" *ngIf="!loading && !error">
     Start with a blank canvas. Pick your toppings and we’ll fire it up exactly how you like it.
   </p>
@@ -9,24 +15,18 @@
 
   <div class="builder-layout" *ngIf="!loading && !error">
     <div class="builder">
-      <div class="builder-label"><span>01</span><strong>Pick your toppings</strong><span class="builder-count">{{ selectedCount }} selected</span></div>
-      <table class="ingredient-table">
-      <tbody>
-        <tr *ngFor="let ing of ingredients" [class.selected]="ing.selected">
-          <td class="img-cell"><img [src]="ing.image" [alt]="ing.name" /></td>
-          <td class="name-cell">{{ ing.name }} <span class="price">₹{{ ing.price }}.00</span></td>
-          <td class="add-cell">
-            <label class="add-toggle">
-              <input type="checkbox" [(ngModel)]="ing.selected" />
-              <span>{{ ing.selected ? 'Added' : 'Add' }}</span>
-            </label>
-          </td>
-        </tr>
-      </tbody>
-      </table>
+      <div class="builder-label"><span>01</span><strong>Pick your toppings</strong><span class="builder-count">Tap to add a favourite</span></div>
+      <div class="ingredient-grid">
+        <label class="ingredient-card" *ngFor="let ing of ingredients" [class.selected]="ing.selected">
+          <input type="checkbox" [(ngModel)]="ing.selected" [attr.aria-label]="'Add ' + ing.name" />
+          <span class="ingredient-photo"><img [src]="ing.image" [alt]="ing.name" /><span class="selected-mark">✓</span></span>
+          <span class="ingredient-info"><strong>{{ ing.name }}</strong><small>+ ₹{{ ing.price }}.00</small></span>
+          <span class="card-action">{{ ing.selected ? 'Added' : 'Add' }}</span>
+        </label>
+      </div>
 
     <div class="build-footer">
-      <p class="total-cost"><span>{{ selectedCount }} toppings</span><strong>₹{{ totalCost }}.00</strong></p>
+      <p class="total-cost"><span>{{ flavorLabel }}</span><strong>₹{{ totalCost }}.00</strong></p>
       <button
         class="btn btn-dark build-btn"
         [disabled]="selectedCount === 0"
@@ -39,9 +39,12 @@
     <aside class="pizza-preview" [class.has-toppings]="selectedCount > 0">
       <div class="preview-orbit"><span>✦</span></div>
       <p class="eyebrow">Your creation</p>
-      <div class="preview-pie">🍕</div>
-      <h2>{{ selectedCount ? 'A pizza with personality.' : 'Start with a blank canvas.' }}</h2>
-      <p>{{ selectedCount ? 'A little extra goodness never hurt.' : 'Choose an ingredient and watch your order come together.' }}</p>
+      <div class="preview-pie"><span class="pie-crust"></span><span class="pie-sauce"></span><span class="pie-cheese"></span><span class="pie-topping" *ngFor="let ing of selectedIngredients; let i = index" [style.--i]="i">{{ ing.name.charAt(0) }}</span></div>
+      <div class="preview-copy">
+        <span class="preview-kicker">{{ selectedCount ? flavorLabel : 'A blank canvas' }}</span>
+        <h2>{{ selectedCount ? 'A pizza with personality.' : 'Start with a blank canvas.' }}</h2>
+        <p>{{ selectedCount ? flavorDescription : 'Choose an ingredient and watch your order come together.' }}</p>
+      </div>
       <div class="ingredient-chips" *ngIf="selectedCount > 0">
         <span *ngFor="let ing of selectedIngredients">{{ ing.name }}</span>
       </div>
